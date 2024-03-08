@@ -6,7 +6,7 @@
 #Se pueden combinar 'wab' por ejemplo
 
 #Archivo a utilizar (Cuidado con el directorio donde estemos que afecta)
-arc = 'prueba.txt'
+arc = 'Teoria\Sesion01\prueba.txt'
 
 #MODO LECTURA
 

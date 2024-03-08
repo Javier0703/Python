@@ -28,7 +28,7 @@ try:
         return cent,asign
 
     #Eleccion de 2 Asignaturas
-    print("Elige dos asignaturas")
+    print("Elige dos asignaturas: ")
     a1 = input("Primera: ")
     a2 = input("SEgunda: ")
 
