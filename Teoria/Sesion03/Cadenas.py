@@ -108,3 +108,4 @@ print(patron.findall(cadena) ) # ['a3425', 'a6']
 print(patron.search(cadena)) # <_sre.SRE_Match object at 0x0311C3D8>
 # match() igual que search() pero coincidencia sólo al comienzo de la cadena
 print(patron.match(cadena)) # None
+

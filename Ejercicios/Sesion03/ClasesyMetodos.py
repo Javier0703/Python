@@ -1,4 +1,6 @@
 #Ejercicios de Clases y Métodos
+import math
+
 """
 1.- Desarrolle una clase Cafetera con atributos capacidad_maxima (la cantidad máxima de café 
 que puede contener la cafetera) y cantidad_actual (la cantidad actual de café que hay en la 
@@ -194,7 +196,133 @@ print(reloj.imprimirHora())
 que guardan las coordenadas cartesianas y un constructor al que se le pasan las coordenadas 
 cartesianas del punto. La clase debe proporcionar dos métodos para obtener las coordenadas polares 
 del punto: distancia al origen (rho) y ángulo respecto al origen de coordenadas (theta). 
-También habrá un método para obtener la distancia a otro punto (distancia), un método para aplicar un factor de escalado (escala), un método para aplicar
-una traslación (traslada) y un método para imprimir el punto con el formato (x, y).
-Construya un programa que cree varios objetos de la clase Punto y pruebe todos sus métodos.
+También habrá un método para obtener la distancia gia otro punto (distancia), un método para 
+aplicar un factor de escalado (escala), un método para aplicar una traslación (traslada) y un 
+método para imprimir el punto con el formato (x, y). Construya un programa que cree varios 
+objetos de la clase Punto y pruebe todos sus métodos.
 """
+
+class Punto():
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+    
+    def cordPolares(self):
+        distOrigen = math.sqrt(self.x**2 + self.y**2)
+        angulo = math.degrees(math.asin(abs(self.y/distOrigen)))
+        l = "Distancia al origen: " +str(round(distOrigen,2)) + ". Angulo formado: " +str(round(angulo,2))+"º"
+        return l
+    
+    def distancia(self,x,y):
+        return round(math.sqrt((x-self.x)**2 + (y-self.y)**2),2)
+    
+    def escalado(self,x):
+        self.x *= x
+        self.y *= x
+
+    def imprimir(self):
+        return "("+str(self.x)+","+str(self.y)+")"
+    
+    def traslado(self,x,y):
+        self.x = x
+        self.y = y
+    
+cord1 = Punto(3,4)
+print(cord1.cordPolares())
+print(cord1.distancia(5,-6))
+cord1.escalado(3)
+print(cord1.imprimir())
+cord1.traslado(5,5)
+print(cord1.imprimir())
+
+"""
+5. Elabore una clase Racional que permita trabajar con números racionales (fracciones). 
+Implemente las operaciones de suma, resta, multiplicación, división y comparación de números 
+racionales. Incluya también un método constructor y un método para imprimir el número racional 
+por pantalla. Construya un programa que cree varios objetos de la clase Racional y pruebe todos 
+sus métodos.
+"""
+
+class Racional():
+    def __init__(self,x,y):
+        self.numerador = x
+        self.denominador = y
+
+    def __str__(self):
+        return f"{self.numerador}/{self.denominador}"
+    
+    def __add__(self,num):
+        newNumerador = (self.numerador * num.denominador) + (num.numerador * self.denominador)
+        newDenominador = self.denominador * num.denominador
+        return Racional(newNumerador, newDenominador)
+    
+    def __sub__(self,num):
+        newNum = self.numerador * num.denominador - num.numerador * self.denominador
+        newDen = self.denominador * num.denominador
+        return Racional(newNum, newDen)
+
+    def __mul__(self, num):
+        newNum = self.numerador * num.numerador
+        newDen = self.denominador * num.denominador
+        return Racional(newNum, newDen)
+
+    def __truediv__(self, num):
+        newNum = self.numerador * num.denominador
+        newDen = self.denominador * num.numerador
+        return Racional(newNum, newDen)
+    
+n1 = Racional(3,5)
+n2 = Racional(4,3)
+print(n1,n2)
+print(n1+n2)
+print(n1*n2)
+
+"""
+6. Desarrolle una clase Persona con atributos nombre, apellidos y dirección de correo electrónico. 
+La clase debe proporcionar el método muestra_datos que muestra por pantalla el nombre, los 
+apellidos y la dirección de correo electrónico. Elabore una clase Estudiante que herede de Persona 
+y que tenga los siguientes atributos: créditos matriculados y curso. La clase de proporcionar el 
+método muestra que muestra por pantalla el nombre, los apellidos, la dirección de correo electrónico,
+los créditos matriculados y el curso. Cree una clase Profesor que herede de Persona y que tenga los 
+siguientes atributos: asignatura, número de alumnos y despacho. La clase de proporcionar el método
+muestra que muestra por pantalla el nombre, los apellidos, la dirección de correo electrónico, 
+la asignatura, el número de alumnos y el despacho. 
+"""
+
+class Persona():
+    def __init__(self,nombre,apellido,correo):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.correo = correo
+
+    def __repr__(self):
+        return f"Nombre: {self.nombre} {self.apellido}. Correo: {self.correo}"
+    
+class Estudiante(Persona):
+    def __init__(self, nombre, apellido, correo, creditos, curso):
+        #Heredamos atributos de Persona
+        super().__init__(nombre, apellido, correo)
+        self.creditos = creditos
+        self.curso = curso
+    
+    def __repr__(self):
+        l = super().__repr__()
+        return f"{l}. Creditos: {self.creditos}. Curso: {self.curso}"
+    
+
+class Profesor(Persona):
+    def __init__(self, nombre, apellido, correo, asignatura, numAlumnos, despacho):
+        #Heredamos atributos de Persona
+        super().__init__(nombre, apellido, correo)
+        self.asignatura = asignatura
+        self.numAlumnos = numAlumnos
+        self.despacho = despacho
+
+    def __repr__(self):
+        l = super().__repr__()
+        return f"{l}. Asignatura: {self.asignatura}. Numero Alumnos: {self.numAlumnos}. Despacho: {self.despacho}"
+
+l = Estudiante("Javier","Pérez","jperez@gmail.com",60,2)
+print(l)
+p = Profesor("Miguel","Calvo","mcalv@uva.es","Física",150,"103B")
+print(p)
